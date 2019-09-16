@@ -16,6 +16,13 @@ def from_inch(unit, value):
     result = f"{value}{unit} = {converted_value}{converted_unit}"
     print(result)
 
+def from_celsius(unit, value):
+    converted_value = (value * (9/5)) + 32
+    converted_unit = "F"
+    result = f"{value}{unit} = {converted_value}{converted_unit}"
+    print(result)
+
+
 
 def main():
     print("*** Welcome to the Metric Conversion program ***")
@@ -24,22 +31,33 @@ def main():
     value = 0
     converted_value = 0
     while True:
-        choice = input('Enter units to convert, or \'Q\' to quit: ')
-        if "ME" in choice.upper():
-            keeper = choice.upper().split("ME")
-            value = int(keeper[0])
-            unit = "ME"
-        elif "MI" in choice.upper():
-            keeper = choice.upper().split("MI")
-            value = int(keeper[0])
-            unit = "MI"
-        elif "'" in choice.upper():
-            keeper = choice.upper().split("'")
-            value = int(keeper[0])
-            unit = "'"
-        if unit.upper() == 'ME' or unit.upper()== 'MI' or unit.upper() == "'" or unit.upper() == "C" or unit.upper() == "F" or choice.upper() == "Q":
-            break
-        print(f"Unrecognized units \"{choice}\", please try again")
+        try:
+            choice = input('Enter units to convert, or \'Q\' to quit: ')
+            if "ME" in choice.upper():
+                keeper = choice.upper().split("ME")
+                value = int(keeper[0])
+                unit = "ME"
+            elif "MI" in choice.upper():
+                keeper = choice.upper().split("MI")
+                value = int(keeper[0])
+                unit = "MI"
+            elif "'" in choice.upper():
+                keeper = choice.upper().split("'")
+                value = int(keeper[0])
+                unit = "'"
+            elif "C" in choice.upper():
+                keeper = choice.upper().split("C")
+                value = int(keeper[0])
+                unit = "C"
+            if unit.upper() == 'ME' \
+                    or unit.upper()== 'MI' \
+                    or unit.upper() == "'" \
+                    or unit.upper() == "C" \
+                    or unit.upper() == "F" \
+                    or choice.upper() == "Q":
+                break
+        except Exception:
+            print(f"Unrecognized units \"{choice}\", please try again")
     while True:
         if unit == 'ME':
             from_meter(unit, value)
@@ -50,9 +68,14 @@ def main():
         elif unit == "'":
             from_inch(unit, value)
             break
+        elif unit == "C":
+            from_celsius(unit, value)
+            break
         elif choice.upper() == "Q":
             print("Goodbye, and may you navigate smoothly through a world cluttered with competing standards.")
             break
+
+
     
 
 main()
