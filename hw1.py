@@ -19,9 +19,14 @@ def from_inch(unit, value):
 def from_celsius(unit, value):
     converted_value = (value * (9/5)) + 32
     converted_unit = "F"
-    result = f"{value}{unit} = {converted_value}{converted_unit}"
+    result = f"{value}{unit} = {converted_value:.2f}{converted_unit}"
     print(result)
 
+def from_fahrenheit(unit, value):
+    converted_value = ((12*value)-32) * (5/9)
+    converted_unit = "C"
+    result = f"{value}{unit} = {converted_value:.2f}{converted_unit}"
+    print(result)
 
 
 def main():
@@ -49,6 +54,12 @@ def main():
                 keeper = choice.upper().split("C")
                 value = int(keeper[0])
                 unit = "C"
+            elif "F" in choice.upper():
+                keeper = choice.upper().split("F")
+                value = int(keeper[0])
+                unit = "F"
+            else:
+                print(f"Unrecognized units \"{choice}\", please try again")
             if unit.upper() == 'ME' \
                     or unit.upper()== 'MI' \
                     or unit.upper() == "'" \
@@ -70,6 +81,9 @@ def main():
             break
         elif unit == "C":
             from_celsius(unit, value)
+            break
+        elif unit == "F":
+            from_fahrenheit(unit, value)
             break
         elif choice.upper() == "Q":
             print("Goodbye, and may you navigate smoothly through a world cluttered with competing standards.")
