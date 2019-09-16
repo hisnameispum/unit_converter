@@ -1,7 +1,10 @@
 def from_meter(unit, value):
-    converted_value = value * 3.28084
-    converted_unit = '"'
-    result = f"{value} meter(s) = {converted_value}{converted_unit}"
+    inch = value * 39.37
+    feet = inch//12
+    inch = inch - (feet*12)
+    feet_unit = "'"
+    inch_unit = '"'
+    result = f"{value} meter(s) = {feet}{feet_unit} and {inch:.2f}{inch_unit}"
     print(result)
 
 def from_mile(unit, value):
@@ -36,7 +39,6 @@ def main():
     value = 0
     converted_value = 0
     while True:
-        try:
             choice = input('Enter units to convert, or \'Q\' to quit: ')
             if "ME" in choice.upper():
                 keeper = choice.upper().split("ME")
@@ -58,17 +60,17 @@ def main():
                 keeper = choice.upper().split("F")
                 value = int(keeper[0])
                 unit = "F"
+            elif "Q" in choice.upper():
+                break
             else:
                 print(f"Unrecognized units \"{choice}\", please try again")
             if unit.upper() == 'ME' \
                     or unit.upper()== 'MI' \
                     or unit.upper() == "'" \
                     or unit.upper() == "C" \
-                    or unit.upper() == "F" \
-                    or choice.upper() == "Q":
+                    or unit.upper() == "F":
                 break
-        except Exception:
-            print(f"Unrecognized units \"{choice}\", please try again")
+
     while True:
         if unit == 'ME':
             from_meter(unit, value)
